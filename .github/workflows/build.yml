@@ -16,8 +16,8 @@ jobs:
     - name: Unzip Project Files
       run: |
         unzip KzinApp.zip
-        if [ -d "KzinApp" ]; then mv KzinApp/* .; fi
-        if [ -d "KzinApp" ]; then rmdir KzinApp; fi
+        cp -r KzinApp/* .
+        rm -rf KzinApp
 
     - name: Set up JDK 17
       uses: actions/setup-java@v4
