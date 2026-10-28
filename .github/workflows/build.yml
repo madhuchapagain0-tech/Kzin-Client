@@ -14,7 +14,9 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Unzip Project Files
-      run: unzip KzinApp.zip
+      run: |
+        unzip KzinApp.zip
+        if [ -d "KzinApp" ]; then mv KzinApp/* .; fi
 
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -24,12 +26,13 @@ jobs:
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew || true
+      with:
+        packages: ''
 
     - name: Build APK
-      run: gradle assembleDebug
+      run: |
+        chmod +x ./gradlew || true
+        gradle assembleDebug --stacktrace
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
