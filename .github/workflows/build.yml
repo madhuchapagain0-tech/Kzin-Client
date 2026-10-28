@@ -16,13 +16,10 @@ jobs:
     - name: Unzip Project Files
       run: |
         unzip KzinApp.zip
-        # Move files out of KzinApp folder if it exists
-        if [ -d "KzinApp" ]; then
-          mv KzinApp/* .
-          rm -rf KzinApp
-        fi
-        # Show files to verify structure
-        ls -R
+        # This line moves files out if they are inside a folder
+        if [ -d "KzinApp" ]; then mv KzinApp/* .; rmdir KzinApp; fi
+        echo "--- CHECKING FILE STRUCTURE ---"
+        ls -F
 
     - name: Set up JDK 17
       uses: actions/setup-java@v4
